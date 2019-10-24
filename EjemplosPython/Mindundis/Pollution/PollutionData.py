@@ -26,7 +26,7 @@ class PollutionData():
 		code1 = str(station)[2:5];
 		code2 = str(station)[5:8];
 		#hora = self.sinteticData.Entero(0,24)
-		value = self.sinteticData.Entero(0,2000)
+		value = self.sinteticData.Entero(1,9)
 		medida = "{};{};{};{};{};{};{};{};{};;{:05d}V".format(hora,cp,code1,code2.replace("0", ''),sustance,station,year,month,day, value)
 		return medida;
 	
