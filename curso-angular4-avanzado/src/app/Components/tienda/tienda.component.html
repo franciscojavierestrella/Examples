@@ -1,0 +1,60 @@
+<div class="col-lg-12" [@fadein]>
+	<h1>{{titulo}}</h1>
+
+	<a class="boto_activo btn btn-success"
+			[@marcar]="status"  (click)="cambiarstatus(status)" >Activar Boton</a>
+
+	<hr>
+
+	<a class="boton_transiciones">Transciones</a>
+	<div class="clearfix"></div>
+
+	<div class="caja_animada">
+
+	</div>
+
+	<hr>
+	<p>Utilizar Jquery dentro de angular</p>
+	<button id="botonjq">Mostrar Texto</button>
+	<p id="textojq" class="alert alert-warning"> Esto es un texto de prueba</p>
+
+	<div id="caja" style="border:1px solid black;width: 150px; height: 50px">
+		Apenas un rato despues de hacerse oficial su fichaje por el Atletico, Morata se ha vestido ya con el traje de entrenamiento y se ha puesto en manos de los preparadores fisicos del equipo para ponerse a tono. 
+	</div>
+
+	<hr/>
+
+	<editor apiKey="test" [init]="{plugins: 'link'}" [(ngModel)]="dataTinymce"></editor>
+
+	<p>
+		tienda works!
+	</p>
+
+	<ol>
+		<li>Camiseta Rosa</li>
+		<li>Camiseta verde</li>
+	</ol>
+	<hr>
+
+	<p>
+	Nombre del parque:
+	<input type="text" [(ngModel)]="nombreParque" (keyup)="mostrarNombre()" />
+	<br> 
+	Resultado: {{nombreParque}}
+	</p>
+	<hr>
+
+	<p *ngIf="(miParque)">
+		<li>Metros: {{miParque.metros}}</li>
+		<li>Vegetaci�n: {{miParque.vegetacion}}</li>
+		<li>
+			<span *ngIf="miParque.abierto == true">Abierto</span>
+			<span *ngIf="miParque.abierto == false">Cerrado</span>
+		</li>
+	</p>
+
+	<hr>
+	<p *ngIf="nombreParque">
+		<app-parques [nombre]="nombreParque" (pasameDatos)="verDatosParque($event)"></app-parques>
+	</p>
+</div>

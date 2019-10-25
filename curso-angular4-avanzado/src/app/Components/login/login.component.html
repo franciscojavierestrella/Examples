@@ -1,0 +1,25 @@
+<div class="col-lg-6">
+  <h1>
+    {{titulo}}
+  </h1>
+  <div class="alert-success" *ngIf="status == 'success'">
+    Login Correcto
+  </div>
+  <div class="alert-danger" *ngIf="status == 'error'">
+    No te has identificado correctamente
+  </div>
+
+  <form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="col-lg-7">    
+    <p> 
+      <label>Correo electr�nico</label>
+      <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control" requiered />
+      <span *ngIf="!email.valid && email.touched">El email es obligatorio</span>
+    </p>
+    <p> 
+      <label>Password</label>
+      <input type="password" name="password" #password="ngModel" [(ngModel)]="user.password" class="form-control" requiered />
+      <span *ngIf="!password.valid && password.touched">El password es obligatorio</span>
+    </p>
+    <input type="submit" value="Entrar" class="btn-success" />
+  </form>
+</div>
