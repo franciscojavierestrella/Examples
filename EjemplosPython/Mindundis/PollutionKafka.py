@@ -14,9 +14,11 @@ if __name__ == '__main__':
     pollutionData = PollutionData("..\\resources\\pollutants.csv","..\\resources\\stations.csv");
     
     conector.conectKafka()
-    conector.sendMessage('station-meassures', 'me cago en la puta')
 
     data = pollutionData.get_measssures(100, 2019, 11, 12, 0, 2);
+    
+    for item in data:
+        conector.sendMessage('station-meassures', item)
     
     for element in data:
         print (" Dato generado  " + str(element))
