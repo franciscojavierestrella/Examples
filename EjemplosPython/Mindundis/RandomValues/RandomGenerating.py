@@ -5,7 +5,7 @@ Created on Wed Oct 16 17:35:15 2019
 @author: javi
 """
 import sys
-from random import randrange
+from random import randrange,random
 from datetime import datetime, timedelta
 
 class SinteticData():
