@@ -1,0 +1,17 @@
+1,Dioxido de Azufre,SO2
+6,Monoxido de Carbono,CO
+7,Monoxido de Nitrogeno,NO
+8,Dioxido de Nitrogeno,NO2
+9,Particulas < 2.5 µm,PM2.5
+10,Particulas < 10 µm,PM10
+12,Oxidos de Nitrogeno,NOx
+14,Ozono,O3
+20,Tolueno,TOL
+30,Benceno,BEN
+35,Etilbenceno,EBE
+37,Metaxileno,MXY
+38,Paraxileno,PXY
+39,Ortoxileno,OXY
+42,Hidrocarburos totales (hexano),TCH
+43,Metano,CH4
+44,Hidrocarburos no metanicos (hexano),NMHC
