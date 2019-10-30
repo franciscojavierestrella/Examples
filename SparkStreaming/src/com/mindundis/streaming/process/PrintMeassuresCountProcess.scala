@@ -21,8 +21,8 @@ class PrintMeassuresCountProcess extends TaskStreamingProcess {
       if (count > 0)
         println("RDD count: " + count)
     })
-
   }
+  
   private def simulateDelay() = {
     def sucession(n: Long): Long =
       if (n == 1) 1 else n + sucession(n - 1)
