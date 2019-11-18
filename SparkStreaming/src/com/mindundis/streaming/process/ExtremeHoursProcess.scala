@@ -15,7 +15,7 @@ class ExtremeHoursProcess extends TaskStreamingProcess {
   override def process(meassureStream: DStream[Meassure]): Unit = {
       val windowedAvgs = meassureStream.
       filter(_.isValid).
-        window(Seconds(50), Seconds(50)).
+        window(Seconds(20), Seconds(20)).
         map(m => (m.date.getHours, (m.value, 1))).
         reduceByKey{case ((sum1, count1), (sum2, count2)) => (sum1 + sum2, count1 + count2)}.
         map{case (hour, (sum, count)) => (hour, sum /count)}

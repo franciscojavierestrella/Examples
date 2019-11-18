@@ -21,6 +21,7 @@ object TaskStreamingProcess {
       case "PLOT_SPECIFIC_STATION_AND_SUBSTANCE" => new PlotSpecificMeassureProcess()
       case "COUNT_EVENTS_IN_WINDOW" => new CountEventsInWindowProcess()
       case "AVG_MEASSURE_PROCESS" => new AvgMeassuresProcess(secondsWindow = 12, secondsSlide = 12)
+      case "AVG_MEASSURE_PROCESS_GRAFANA" => new AvgMeassuresProcessGrafana(secondsWindow = 12, secondsSlide = 12)
       case "AVG_MEASSURE_PROCESS_SLIDING" => new AvgMeassuresProcess(secondsWindow = 12, secondsSlide = 3)
       case "EXTREME_HOUR_PROCESS" => new ExtremeHoursProcess()
       case "EXTREME_HOUR_WITH_STATE_PROCESS" => new ExtremeHoursWithStateProcess()

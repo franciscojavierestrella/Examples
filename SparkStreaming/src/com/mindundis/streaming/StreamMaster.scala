@@ -47,7 +47,7 @@ object StreamMaster {
     val ssc = new StreamingContext(sparkConf, process.batchDuration)    
       
     ssc.sparkContext.setLogLevel("OFF")
-    ssc.checkpoint(appProperties("chekpoint_dir"))      
+    //ssc.checkpoint(appProperties("chekpoint_dir"))      
     ssc
   }  
   
