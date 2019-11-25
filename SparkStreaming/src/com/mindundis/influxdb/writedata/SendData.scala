@@ -22,7 +22,6 @@ object HttpPostData {
   }
     
   private def postRequest(url: String, payload: String): HttpPost = {
-    //"http://localhost:8086/write?db=testiot"
     val post = new HttpPost(url)
     post.setEntity(new StringEntity(payload))
     post
