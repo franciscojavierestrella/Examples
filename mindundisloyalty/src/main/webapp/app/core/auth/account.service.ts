@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, of } from 'rxjs';
 import { shareReplay, tap, catchError } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { Account } from 'app/core/user/account.model';
@@ -21,6 +22,10 @@ export class AccountService {
 
   save(account: Account): Observable<Account> {
     return this.http.post<Account>(SERVER_API_URL + 'api/account', account);
+  }
+  
+  get(): Observable<any> {
+      return this.http.get(SERVER_API_URL + 'api/account').pipe(map((res: Response) => res.json()));
   }
 
   authenticate(identity) {
