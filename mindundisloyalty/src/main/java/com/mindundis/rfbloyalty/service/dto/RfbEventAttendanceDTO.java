@@ -12,10 +12,29 @@ public class RfbEventAttendanceDTO implements Serializable {
 
     private LocalDate attendanceDate;
 
-
     private Long rfbEventId;
 
     private Long rfbUserId;
+    
+    private String eventName;
+    
+    public String getEventName() {
+		return eventName;
+	}
+
+	public void setEventName(String eventName) {
+		this.eventName = eventName;
+	}
+
+	public String getUserLogin() {
+		return userLogin;
+	}
+
+	public void setUserLogin(String userLogin) {
+		this.userLogin = userLogin;
+	}
+
+	private String userLogin;
 
     public Long getId() {
         return id;

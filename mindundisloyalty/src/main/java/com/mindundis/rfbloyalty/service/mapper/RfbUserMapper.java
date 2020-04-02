@@ -12,6 +12,7 @@ import org.mapstruct.*;
 public interface RfbUserMapper extends EntityMapper<RfbUserDTO, RfbUser> {
 
     @Mapping(source = "homeLocation.id", target = "homeLocationId")
+    @Mapping(source = "homeLocation.locationName", target = "locationName")
     RfbUserDTO toDto(RfbUser rfbUser);
 
     @Mapping(source = "homeLocationId", target = "homeLocation")

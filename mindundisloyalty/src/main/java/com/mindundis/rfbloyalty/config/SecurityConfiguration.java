@@ -19,6 +19,8 @@ import org.springframework.security.oauth2.jwt.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
 import java.util.*;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
@@ -84,11 +86,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .and()
             .authorizeRequests()
             .antMatchers("/api/auth-info").permitAll()
+            .antMatchers("/api/rfb-events/**").hasAnyAuthority(AuthoritiesConstants.ADMIN, AuthoritiesConstants.ORGANIZER)
+            .antMatchers("/api/rfb-location/**").hasAuthority(AuthoritiesConstants.ADMIN)
+            .antMatchers("/api/rfb-eventattendance/**").hasAuthority(AuthoritiesConstants.ADMIN)
+            .antMatchers("/api/rfb-user/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/api/**").authenticated()
             .antMatchers("/management/health").permitAll()
             .antMatchers("/management/info").permitAll()
             .antMatchers("/management/prometheus").permitAll()
-            .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
+            .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)            
         .and()
             .oauth2Login()
         .and()
@@ -132,5 +138,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         jwtDecoder.setJwtValidator(withAudience);
 
         return jwtDecoder;
+    }
+    
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

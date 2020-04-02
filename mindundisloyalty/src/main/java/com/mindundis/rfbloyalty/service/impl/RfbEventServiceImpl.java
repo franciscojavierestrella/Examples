@@ -2,9 +2,14 @@ package com.mindundis.rfbloyalty.service.impl;
 
 import com.mindundis.rfbloyalty.service.RfbEventService;
 import com.mindundis.rfbloyalty.domain.RfbEvent;
+import com.mindundis.rfbloyalty.domain.RfbLocation;
 import com.mindundis.rfbloyalty.repository.RfbEventRepository;
+import com.mindundis.rfbloyalty.repository.RfbLocationRepository;
 import com.mindundis.rfbloyalty.service.dto.RfbEventDTO;
+import com.mindundis.rfbloyalty.service.dto.RfbLocationDTO;
 import com.mindundis.rfbloyalty.service.mapper.RfbEventMapper;
+import com.mindundis.rfbloyalty.service.mapper.RfbLocationMapper;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,12 +30,18 @@ public class RfbEventServiceImpl implements RfbEventService {
     private final Logger log = LoggerFactory.getLogger(RfbEventServiceImpl.class);
 
     private final RfbEventRepository rfbEventRepository;
+    
+    private final RfbLocationRepository rfbLocationRepository;
 
     private final RfbEventMapper rfbEventMapper;
+    private final RfbLocationMapper rfbLoctionMapper;
 
-    public RfbEventServiceImpl(RfbEventRepository rfbEventRepository, RfbEventMapper rfbEventMapper) {
+    public RfbEventServiceImpl(RfbEventRepository rfbEventRepository, RfbEventMapper rfbEventMapper, 
+    						   RfbLocationRepository rfbLocationRepository, RfbLocationMapper rfbLoctionMapper) {
         this.rfbEventRepository = rfbEventRepository;
         this.rfbEventMapper = rfbEventMapper;
+        this.rfbLocationRepository = rfbLocationRepository;
+        this.rfbLoctionMapper = rfbLoctionMapper;
     }
 
     /**
@@ -58,7 +69,7 @@ public class RfbEventServiceImpl implements RfbEventService {
     public Page<RfbEventDTO> findAll(Pageable pageable) {
         log.debug("Request to get all RfbEvents");
         return rfbEventRepository.findAll(pageable)
-            .map(rfbEventMapper::toDto);
+        	.map(rfbEventMapper::toDto);
     }
 
 

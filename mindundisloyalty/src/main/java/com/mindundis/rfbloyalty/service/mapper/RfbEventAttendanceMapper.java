@@ -12,7 +12,9 @@ import org.mapstruct.*;
 public interface RfbEventAttendanceMapper extends EntityMapper<RfbEventAttendanceDTO, RfbEventAttendance> {
 
     @Mapping(source = "rfbEvent.id", target = "rfbEventId")
+    @Mapping(source = "rfbEvent.eventCode", target = "eventName")
     @Mapping(source = "rfbUser.id", target = "rfbUserId")
+    @Mapping(source = "rfbUser.username", target = "userLogin")
     RfbEventAttendanceDTO toDto(RfbEventAttendance rfbEventAttendance);
 
     @Mapping(source = "rfbEventId", target = "rfbEvent")

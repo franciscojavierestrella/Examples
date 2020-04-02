@@ -5,6 +5,7 @@ export interface IRfbUser {
   username?: string;
   homeLocationId?: number;
   rfbEventAttendances?: IRfbEventAttendance[];
+  locationName?: string;
 }
 
 export class RfbUser implements IRfbUser {
@@ -12,6 +13,7 @@ export class RfbUser implements IRfbUser {
     public id?: number,
     public username?: string,
     public homeLocationId?: number,
-    public rfbEventAttendances?: IRfbEventAttendance[]
+    public rfbEventAttendances?: IRfbEventAttendance[],
+    public locationName?: string
   ) {}
 }

@@ -18,6 +18,8 @@ import java.util.stream.Collectors;
  */
 public class UserDTO {
 
+	@NotBlank
+    @Size(min = 1, max = 50)
     private String id;
 
     @NotBlank
@@ -58,21 +60,31 @@ public class UserDTO {
     }
 
     public UserDTO(User user) {
-        this.id = user.getId();
-        this.login = user.getLogin();
-        this.firstName = user.getFirstName();
-        this.lastName = user.getLastName();
-        this.email = user.getEmail();
-        this.activated = user.getActivated();
-        this.imageUrl = user.getImageUrl();
-        this.langKey = user.getLangKey();
-        this.createdBy = user.getCreatedBy();
-        this.createdDate = user.getCreatedDate();
-        this.lastModifiedBy = user.getLastModifiedBy();
-        this.lastModifiedDate = user.getLastModifiedDate();
-        this.authorities = user.getAuthorities().stream()
-            .map(Authority::getName)
-            .collect(Collectors.toSet());
+        this(user.getId(), user.getLogin(), user.getFirstName(), user.getLastName(),
+            user.getEmail(), user.getActivated(), user.getImageUrl(), user.getLangKey(),
+            user.getCreatedBy(), user.getCreatedDate(), user.getLastModifiedBy(), user.getLastModifiedDate(),
+            user.getAuthorities().stream().map(Authority::getName)
+                .collect(Collectors.toSet()));
+    }
+
+    public UserDTO(String id, String login, String firstName, String lastName,
+        String email, boolean activated, String imageUrl, String langKey,
+        String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate,
+        Set<String> authorities) {
+
+        this.id = id;
+        this.login = login;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.activated = activated;
+        this.imageUrl = imageUrl;
+        this.langKey = langKey;
+        this.createdBy = createdBy;
+        this.createdDate = createdDate;
+        this.lastModifiedBy = lastModifiedBy;
+        this.lastModifiedDate = lastModifiedDate;
+        this.authorities = authorities;
     }
 
     public String getId() {
@@ -182,6 +194,7 @@ public class UserDTO {
     @Override
     public String toString() {
         return "UserDTO{" +
+        	"id='" + id + '\'' +
             "login='" + login + '\'' +
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +

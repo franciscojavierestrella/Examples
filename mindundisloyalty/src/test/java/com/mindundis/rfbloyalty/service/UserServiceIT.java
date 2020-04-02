@@ -61,6 +61,7 @@ public class UserServiceIT {
     @BeforeEach
     public void init() {
         user = new User();
+        user.setId("id");
         user.setLogin(DEFAULT_LOGIN);
         user.setActivated(true);
         user.setEmail(DEFAULT_EMAIL);
@@ -80,7 +81,7 @@ public class UserServiceIT {
     @Test
     @Transactional
     public void assertThatAnonymousUserIsNotGet() {
-        user.setId(Constants.ANONYMOUS_USER);
+        user.setId("id1");
         user.setLogin(Constants.ANONYMOUS_USER);
         if (!userRepository.findOneByLogin(Constants.ANONYMOUS_USER).isPresent()) {
             userRepository.saveAndFlush(user);

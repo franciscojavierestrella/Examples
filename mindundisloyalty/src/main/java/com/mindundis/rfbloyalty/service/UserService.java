@@ -5,9 +5,12 @@ import com.mindundis.rfbloyalty.domain.Authority;
 import com.mindundis.rfbloyalty.domain.User;
 import com.mindundis.rfbloyalty.repository.AuthorityRepository;
 import com.mindundis.rfbloyalty.repository.UserRepository;
+import com.mindundis.rfbloyalty.security.AuthoritiesConstants;
 import com.mindundis.rfbloyalty.security.SecurityUtils;
 import com.mindundis.rfbloyalty.service.dto.UserDTO;
+import com.mindundis.rfbloyalty.service.util.RandomUtil;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;
@@ -17,6 +20,8 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,14 +40,71 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
+
     private final AuthorityRepository authorityRepository;
 
     private final CacheManager cacheManager;
 
-    public UserService(UserRepository userRepository, AuthorityRepository authorityRepository, CacheManager cacheManager) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
+    }
+
+
+    public User createUser(String login, String password, String firstName, String lastName, String email,
+        String imageUrl, String langKey) {
+
+        User newUser = new User();
+        Authority authority = authorityRepository.findById(AuthoritiesConstants.RUNNER).orElse(null);
+        Set<Authority> authorities = new HashSet<>();
+        String encryptedPassword = passwordEncoder.encode(password);
+        newUser.setId(RandomStringUtils.randomAlphabetic(15));
+        newUser.setLogin(login);
+        // new user gets initially a generated password
+        newUser.setFirstName(firstName);
+        newUser.setLastName(lastName);
+        newUser.setEmail(email);
+        newUser.setImageUrl(imageUrl);
+        newUser.setLangKey(langKey);
+        // new user is not active
+        newUser.setActivated(false);
+        authorities.add(authority);
+        newUser.setAuthorities(authorities);
+        userRepository.save(newUser);
+        log.debug("Created Information for User: {}", newUser);
+        return newUser;
+    }
+
+    public User createUser(UserDTO userDTO) {
+        User user = new User();
+        user.setId(userDTO.getId());
+        user.setLogin(userDTO.getLogin());
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
+        user.setEmail(userDTO.getEmail());
+        user.setImageUrl(userDTO.getImageUrl());
+        if (userDTO.getLangKey() == null) {
+            user.setLangKey("en"); // default language
+        } else {
+            user.setLangKey(userDTO.getLangKey());
+        }
+        if (userDTO.getAuthorities() != null) {
+            Set<Authority> authorities = new HashSet<>();
+            userDTO.getAuthorities().forEach(
+                authority -> authorities.add(authorityRepository.findById(authority).orElse(null))
+            );
+            user.setAuthorities(authorities);
+        }
+        String encryptedPassword = passwordEncoder.encode(RandomUtil.generatePassword());
+        user.setActivated(true);
+        userRepository.save(user);
+        log.debug("Created Information for User: {}", user);
+        return user;
     }
 
     /**
@@ -139,6 +201,8 @@ public class UserService {
     }
 
     private User syncUserWithIdP(Map<String, Object> details, User user) {
+    	
+    	log.debug("Sync User: {}", user);
         // save authorities in to sync user roles/groups between IdP and JHipster's local database
         Collection<String> dbAuthorities = getAuthorities();
         Collection<String> userAuthorities =
@@ -170,7 +234,8 @@ public class UserService {
                     user.getLangKey(), user.getImageUrl());
             }
         } else {
-            log.debug("Saving user '{}' in local database", user.getLogin());
+        	user.setCreatedBy("system");
+            log.debug("Saving user '{}' in local database", user);
             userRepository.save(user);
             this.clearUserCaches(user);
         }

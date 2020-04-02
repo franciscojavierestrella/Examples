@@ -41,7 +41,7 @@ public class SecurityUtilsUnitTest {
         OidcIdToken idToken = new OidcIdToken(ID_TOKEN, Instant.now(),
             Instant.now().plusSeconds(60), claims);
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.USER));
+        authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.ORGANIZER));
         OidcUser user = new DefaultOidcUser(authorities, idToken);
         OAuth2AuthenticationToken bla = new OAuth2AuthenticationToken(user, authorities, "oidc");
         securityContext.setAuthentication(bla);
@@ -76,11 +76,11 @@ public class SecurityUtilsUnitTest {
     public void testIsCurrentUserInRole() {
         SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.USER));
+        authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.ORGANIZER));
         securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("user", "user", authorities));
         SecurityContextHolder.setContext(securityContext);
 
-        assertThat(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.USER)).isTrue();
+        assertThat(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ORGANIZER)).isTrue();
         assertThat(SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)).isFalse();
     }
 

@@ -11,10 +11,19 @@ public class RfbUserDTO implements Serializable {
 
     private String username;
 
-
     private Long homeLocationId;
+    
+    private String locationName;
 
-    public Long getId() {
+    public String getLocationName() {
+		return locationName;
+	}
+
+	public void setLocationName(String locationName) {
+		this.locationName = locationName;
+	}
+
+	public Long getId() {
         return id;
     }
 

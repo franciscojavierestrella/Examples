@@ -121,4 +121,5 @@ export class RfbEventComponent implements OnInit, OnDestroy {
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
     this.rfbEvents = data;
   }
+    
 }

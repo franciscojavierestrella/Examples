@@ -2,6 +2,7 @@ package com.mindundis.rfbloyalty.web.rest;
 
 import com.mindundis.rfbloyalty.MindundisloyaltyApp;
 import com.mindundis.rfbloyalty.config.TestSecurityConfiguration;
+import com.mindundis.rfbloyalty.repository.UserRepository;
 import com.mindundis.rfbloyalty.security.AuthoritiesConstants;
 import com.mindundis.rfbloyalty.service.UserService;
 import com.mindundis.rfbloyalty.web.rest.errors.ExceptionTranslator;
@@ -43,6 +44,9 @@ public class AccountResourceIT {
 
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private UserRepository userRepository;
 
     private MockMvc restUserMockMvc;
 
@@ -52,7 +56,7 @@ public class AccountResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        AccountResource accountUserMockResource = new AccountResource(userService);
+        AccountResource accountUserMockResource = new AccountResource (userRepository, userService);
 
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(accountUserMockResource)
             .setControllerAdvice(exceptionTranslator)

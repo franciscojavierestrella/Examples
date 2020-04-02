@@ -33,9 +33,9 @@ spring:
       enabled: false
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://localhost:3306/mindundisloyalty?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
-    username: root
-    password:
+    url: jdbc:mysql://database-1.c1ecz0u3dzkj.eu-west-3.rds.amazonaws.com:3306/loyaltydb?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: loyaltydb
+    password: Fotbrir76
     hikari:
       poolName: Hikari
       auto-commit: false
@@ -49,6 +49,7 @@ spring:
     database: MYSQL
     show-sql: false
     properties:
+      HIBERNATE.DDL_AUTO: validate
       hibernate.id.new_generator_mappings: true
       hibernate.connection.provider_disables_autocommit: true
       hibernate.cache.use_second_level_cache: false
@@ -70,6 +71,17 @@ spring:
     password:
   thymeleaf:
     cache: true
+  security:
+    oauth2:
+      client:
+        provider:
+          oidc:
+            issuer-uri: https://dev-184336.okta.com/oauth2/default
+        registration:
+          oidc:
+            client-id: 0oa13vouakdRkBkKu4x6
+            client-secret: 27fE8AeFHq3OljTMOjdmjpaFV4iKlyRKyceLrceb
+
 
 # ===================================================================
 # To enable TLS in production, generate a certificate using:
@@ -107,12 +119,17 @@ jhipster:
   http:
     cache: # Used by the CachingHttpHeadersFilter
       timeToLiveInDays: 1461
+  #cache: # Cache configuration
+  #  memcached:
+  #    enabled: true
+  #    servers: localhost:11211
+  #    expiration: 300
+  #    use-binary-protocol: true
   cache: # Cache configuration
-    memcached:
-      enabled: true
-      servers: localhost:11211
-      expiration: 300
-      use-binary-protocol: true
+    memcached: # Memcached configuration
+      # Disabled by default in dev mode as Memcached does not work with Spring Boot Devtools
+      # If you want to use Memcached, you must also enable it in CacheConfiguration
+      enabled: false  
   mail: # specific JHipster mail property, for standard properties see MailProperties
     base-url: http://my-server-url-to-change # Modify according to your server's URL
   metrics:

@@ -29,8 +29,8 @@
                 <td><a [routerLink]="['/rfb-user', rfbUser.id, 'view' ]">{{rfbUser.id}}</a></td>
                 <td>{{rfbUser.username}}</td>
                 <td>
-                    <div *ngIf="rfbUser.homeLocationId">
-                        <a [routerLink]="['/rfb-location', rfbUser.homeLocationId , 'view' ]" >{{rfbUser.homeLocationId}}</a>
+                    <div *ngIf="rfbUser.locationName">
+                        <a [routerLink]="['/rfb-location', rfbUser.homeLocationId , 'view' ]" >{{rfbUser.locationName}}</a>
                     </div>
                 </td>
                 <td class="text-right">

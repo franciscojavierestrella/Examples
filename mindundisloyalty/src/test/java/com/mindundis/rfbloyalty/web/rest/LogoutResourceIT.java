@@ -77,7 +77,7 @@ public class LogoutResourceIT {
 
     private OAuth2AuthenticationToken authenticationToken(OidcIdToken idToken) {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.USER));
+        authorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.ORGANIZER));
         OidcUser user = new DefaultOidcUser(authorities, idToken);
         return new OAuth2AuthenticationToken(user, authorities, "oidc");
     }

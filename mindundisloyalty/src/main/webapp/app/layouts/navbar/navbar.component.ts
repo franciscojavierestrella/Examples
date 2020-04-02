@@ -46,11 +46,6 @@ export class NavbarComponent implements OnInit {
     this.loginService.login();
   }
   
-  register() {
-      this.loginService.login();
-    }
-
-
   logout() {
     this.collapseNavbar();
     this.loginService.logout();
