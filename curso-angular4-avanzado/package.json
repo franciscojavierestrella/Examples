@@ -22,7 +22,7 @@
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
     "@tinymce/tinymce-angular": "^2.5.0",
-    "bootstrap": "3.3.6",
+    "bootstrap": "3.4.1",
     "core-js": "^2.6.3",
     "jquery": "1.12",
     "jquery-dotdotdot": "1.8.2",
