@@ -4,7 +4,7 @@ entity RfbLocation {
 }
 
 entity RfbEvent {
-    eventDate LocalDate,
+	eventDate LocalDate,
     eventCode String
 }
 
