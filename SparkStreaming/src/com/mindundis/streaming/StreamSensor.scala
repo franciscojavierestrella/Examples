@@ -5,8 +5,8 @@ import java.util.Properties
 import java.io.FileInputStream
 
 
-import com.mindundis.streaming.entity.Meassure
-import com.mindundis.streaming.process.TaskStreamingProcess
+import com.mindundis.streaming.entity.Sensor
+import com.mindundis.streaming.process_sensor.TaskStreamingProcessSensor
 import org.apache.spark.SparkConf
 import org.apache.spark.storage.StorageLevel
 import org.apache.spark.streaming.StreamingContext
@@ -18,7 +18,7 @@ import kafka.serializer.DefaultDecoder
 
 import scala.collection.JavaConverters._
 
-object StreamSensor {
+object StreamMaster {
   
   def getCustomProperties(): Map[String, String] = {
     val prop = new Properties()
@@ -36,10 +36,10 @@ object StreamSensor {
 
   
   def createStreamingContext(appProperties: Map[String, String],
-                             process: TaskStreamingProcess,
+                             process: TaskStreamingProcessSensor,
                              processName: String): StreamingContext = {
     
-    val sparkConf = new SparkConf().setAppName(s"Ambiental meassures - SStreaming, process: ${processName}")
+    val sparkConf = new SparkConf().setAppName(s"IoT meassures - SStreaming, process: ${processName}")
     //sparkConf.set("spark.streaming.blockInterval", "200ms")
     if (sparkConf.getOption("spark.master").isEmpty)
       sparkConf.setMaster(appProperties("spark_master_if_undefined"))
@@ -60,13 +60,14 @@ object StreamSensor {
 
     val processName = args(0)
     val appProperties = getCustomProperties()
-    val process = TaskStreamingProcess.createProcess(processName)
+    val process = TaskStreamingProcessSensor.createProcess(processName)
     
+    val sparkConf = new SparkConf().setAppName("StreamSensor")
     val ssc = createStreamingContext(appProperties, process, processName)
     val messages: ReceiverInputDStream[(String, String)] = createKafkaStream(ssc, appProperties)
 
-    val meassures: DStream[Meassure] =
-      messages.map{ case (_, csvMeassure) => Meassure(csvMeassure)}
+    val meassures: DStream[Sensor] =
+      messages.map{ case (_, csvMeassure) => Sensor(csvMeassure)}
 
     process.process(meassures)
     

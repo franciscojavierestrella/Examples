@@ -16,7 +16,7 @@ object HttpPostData {
     val entity = response.getEntity
     println("HttpPostData => Entity " + entity)
     if ( entity == null )
-      throw new UnknownSendDataInfluxDBException()
+      return 0;
     println("--- HEADERS ---")
     response.getAllHeaders.foreach(arg => println(arg))
   }
