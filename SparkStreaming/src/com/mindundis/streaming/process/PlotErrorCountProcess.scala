@@ -24,7 +24,7 @@ class PlotErrorCountProcess extends TaskStreamingProcess {
         }
       rddByError.foreach {
         case(errorLabel, count) => {
-          val socket = new Socket("192.168.1.16", 2003)
+          val socket = new Socket("192.168.1.19", 2003)
           val out = new PrintWriter(socket.getOutputStream(), true)
           val graphiteMsg = s"local.pollution_errors.$errorLabel $count ${new Date().getTime / 1000}"
           println("Sending msg to graphite: " + graphiteMsg)

@@ -18,7 +18,7 @@ class PlotAllMeassuresProcess extends TaskStreamingProcess {
     meassureStream.
       filter(m => m.isValid).foreachRDD(rdd =>{
         rdd.foreachPartition(itr => {
-          val socket = new Socket("192.168.1.16", 2003)
+          val socket = new Socket("192.168.1.19", 2003)
           val out = new PrintWriter(socket.getOutputStream(), true)
           itr.foreach(m => {
             val graphiteMsg = s"local.pollution.station_${m.station}.${m.substanceId} ${m.value} ${m.date.getTime/ 1000}"

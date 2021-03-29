@@ -27,7 +27,7 @@ class AvgMeassuresProcess(secondsWindow: Int, secondsSlide: Int) extends TaskStr
 
     avgInWindowDStream.foreachRDD(rdd => {
         println( " Procesamos una ventana..." )
-        val socket = new Socket("192.168.1.16", 2003)
+        val socket = new Socket("192.168.1.19", 2003)
         val out = new PrintWriter(socket.getOutputStream(), true)
 
         println( " Recolectamos los datos y para la partición ..." )

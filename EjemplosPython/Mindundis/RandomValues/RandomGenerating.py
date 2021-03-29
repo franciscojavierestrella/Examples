@@ -5,7 +5,7 @@ Created on Wed Oct 16 17:35:15 2019
 @author: javi
 """
 import sys
-from random import randrange,random
+from random import randrange,random, randint
 from datetime import datetime, timedelta
 
 class SinteticData():
@@ -24,5 +24,5 @@ class SinteticData():
 		return r.strftime(fmt)	
 
 	def Entero(self, inicio, final):
-		return randrange(inicio,final)
+		return randint(inicio,final)
 

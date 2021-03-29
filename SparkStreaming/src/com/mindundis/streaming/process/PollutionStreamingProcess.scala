@@ -1,6 +1,7 @@
 package com.mindundis.streaming.process
 
 import com.mindundis.streaming.entity.Meassure
+import com.mindundis.streaming.entity.Sensor
 import org.apache.spark.streaming.{Duration, Seconds}
 import org.apache.spark.streaming.dstream.DStream
 
