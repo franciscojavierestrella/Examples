@@ -17,12 +17,16 @@ class PollutionData():
 		self.stations = DataSet(stations)
 
 	def get_station(self):
-		station = self.stations.get_data(0, self.sinteticData.Entero(0,43));
+		cod_station = self.sinteticData.Entero(0,42)
+		print (" Estación generada "+ str(cod_station))
+		station = self.stations.get_data( cod_station, 0);
 		return station;
 		
 	def get_measssure(self, hora, year, month, day):
 		station = self.get_station()
-		sustance = self.pollutions.get_data(0, self.sinteticData.Entero(0,16));
+		cod_sustance = self.sinteticData.Entero(0,15)
+		print (" Código sustancia generada "+ str(cod_sustance))
+		sustance = self.pollutions.get_data(cod_sustance, 0);
 		cp = str(station)[0:2];
 		code1 = str(station)[2:5];
 		code2 = str(station)[5:8];
@@ -46,11 +50,11 @@ class PollutionData():
 		delta = date2 -date1
 		days = delta.days
 		
-		tamanyo = elements / days
-		slot = (elements / tamanyo)
+		tamanyo = (int) (elements / days)
+		slot = (int) (elements / tamanyo)
 		
 		print (" Slot " + str(slot) + " Tamanyo " + str(tamanyo) + " Days "+ str(days))
-		for z in range(0,slot):
+		for z in range(0,slot ):
 			dist_hour = tamanyo / 23
 			contador = 0
 			hour = 0

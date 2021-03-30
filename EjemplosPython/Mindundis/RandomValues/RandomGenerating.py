@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 
 class SinteticData():
 	def __init__(self):
-		print " Clase inicialzada"
+		print (" Clase inicializada")
 	
 	def Fecha(self, start, end, fmt = "%d/%m/%Y"):
 		s = datetime.strptime(start, fmt)

@@ -16,7 +16,9 @@ class DataSet():
         return self.pollutants;
     
     def get_data(self, row, column):
-        return self.pollutants.iloc[column,row];
+        print (" Fila:"+ str(row) + " Columna:" + str(column))
+        return self.pollutants.iloc[row, column];
+        #return self.pollutants.iloc[row, column];
     
     def _loadresource(self):
         self.pollutants = pd.read_csv (self.filename , sep=",")

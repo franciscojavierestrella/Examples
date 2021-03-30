@@ -11,7 +11,7 @@ import time
 if __name__ == '__main__':
     conector = KafkaConnect('quickstart.cloudera:9092')
     
-    sleep = input("Enter a value sleeping: ") 
+    sleep = (int)( input("Enter a value sleeping: ")) 
     
     print (os.getcwd())
     pollutionData = PollutionData("..\\resources\\pollutants.csv","..\\resources\\stations.csv");
