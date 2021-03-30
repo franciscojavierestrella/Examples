@@ -58,12 +58,12 @@ class SensorData():
 		slot = (elements / tamanyo)
 		
 		print (" Slot " + str(slot) + " Tamanyo " + str(tamanyo) + " Days "+ str(days))
-		for z in range(0,slot):
+		for z in range(0,int(slot)):
 			dist_hour = tamanyo / 23
 			contador = 0
 			hour = 0
 			print (" Distribución " + str(dist_hour) + " Contador " + str(contador) + " Hour "+ str(hour))			
-			for j in range(1, tamanyo):
+			for j in range(1, int(tamanyo)):
 				medida = self.get_value(hour, date1.year, date1.month, date1.day)
 				medidas.insert(len(medidas), medida)
 				if contador == dist_hour:

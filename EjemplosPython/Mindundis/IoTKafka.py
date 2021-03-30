@@ -13,7 +13,7 @@ if __name__ == '__main__':
     
     sleep = input("Enter a value sleeping: ") 
     
-    print os.getcwd()
+    print (os.getcwd())
     sensorData = SensorData("..\\resources\\operacion.csv","..\\resources\\sensores.csv", "..\\resources\\locations.csv");
     
     conector.conectKafka()
@@ -21,7 +21,7 @@ if __name__ == '__main__':
     data = sensorData.get_measssures_fechas(10000, '20/04/2020', '31/05/2020');
      
     for item in data:
-        time.sleep(sleep)
+        time.sleep(int(sleep))
         conector.sendMessage('station-iot', item)
         print (" Dato enviado  " + str(item))
     

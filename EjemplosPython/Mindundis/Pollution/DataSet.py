@@ -8,7 +8,7 @@ import pandas as pd
 
 class DataSet():
     def __init__(self, filename):
-        print " Clase inicializada"
+        print (" Clase inicializada")
         self.filename = filename;
         self._loadresource();
 

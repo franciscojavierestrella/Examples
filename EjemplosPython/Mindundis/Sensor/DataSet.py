@@ -8,7 +8,7 @@ import pandas as pd
 
 class DataSet():
     def __init__(self, filename):
-        print " Clase inicializada"
+        print (" Clase inicializada")
         self.filename = filename;
         self._loadresource();
 
@@ -20,5 +20,5 @@ class DataSet():
     
     def _loadresource(self):
         self.pollutants = pd.read_csv (self.filename , header=None, sep=",")
-        print self.pollutants
+        print (self.pollutants)
 

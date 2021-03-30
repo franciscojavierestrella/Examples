@@ -13,7 +13,7 @@ if __name__ == '__main__':
     
     sleep = input("Enter a value sleeping: ") 
     
-    print os.getcwd()
+    print (os.getcwd())
     pollutionData = PollutionData("..\\resources\\pollutants.csv","..\\resources\\stations.csv");
     
     conector.conectKafka()

@@ -11,7 +11,7 @@ from datetime import timedelta, datetime
 
 class PollutionData():
 	def __init__(self, pollution, stations):
-		print " Clase inicializada"
+		print (" Clase inicializada")
 		self.sinteticData = SinteticData();
 		self.pollutions = DataSet(pollution)
 		self.stations = DataSet(stations)
