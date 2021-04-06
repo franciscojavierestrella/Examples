@@ -27,3 +27,4 @@ EjemplosPython/Mindundis/KafkaConnector/KafkaCon.pyc
 EjemplosPython/Mindundis/KafkaConnector/__init__.pyc
 EjemplosPython/Mindundis/Ejemplo/__pycache__/__init__.cpython-36.pyc
 EjemplosPython/Mindundis/__pycache__/__init__.cpython-36.pyc
+*.db
